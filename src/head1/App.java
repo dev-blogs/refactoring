@@ -5,12 +5,6 @@ import java.util.TimeZone;
 
 public class App {
 	public static void main(String [] args) {
-		Date localTime = new Date(1481030853296l + 3*60*60*1000/2);
-		
-		System.out.println(localTime.getTime());
-		System.out.println(TimeZone.getDefault());
-		System.out.println(TimeZone.getDefault().getOffset(1l)/1000/60/60);
-		
 		Movie movie1 = new Movie("movie1", 1);
 		Movie movie2 = new Movie("movie2", 2);
 		Movie movie3 = new Movie("movie3", 3);

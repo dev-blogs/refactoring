@@ -19,24 +19,47 @@ public class Customer {
 		return _name;
 	}
 	
+	public String htmlStatement() {
+		Enumeration rentals = _rentals.elements();
+		String result = "<h1>Rental's operations for <em>" + getName() + "</em></h1><p>\n";
+		while (rentals.hasMoreElements()) {
+			Rental each = (Rental) rentals.nextElement();
+			result += each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "<br>\n";
+		}
+		result += "<p>You credit is <em>" + String.valueOf(getTotalCharge()) + "</em><p>\n";
+		result += "You earned <em>" + String.valueOf(getTotalFrequentRenterPoints()) + "</em> bals for active<p>";
+		return result;
+	}
+	
 	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
 		Enumeration rentals = _rentals.elements();
 		String result = "Rental for " + getName() + "\n";
 		while (rentals.hasMoreElements()) {
 			Rental each = (Rental) rentals.nextElement();
-			
-			double thisAmount = each.getCharge();
-			
-			frequentRenterPoints++;
-			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) frequentRenterPoints++;
-			
-			result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
-			totalAmount += thisAmount;
+			result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
 		}
-		result += "Credit is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints) + " bals for active";
+		result += "Credit is " + String.valueOf(getTotalCharge()) + "\n";
+		result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " bals for active";
+		return result;
+	}
+	
+	private double getTotalCharge() {
+		double result = 0.0;
+		Enumeration rentals = _rentals.elements();
+		while (rentals.hasMoreElements()) {
+			Rental each = (Rental) rentals.nextElement();
+			result += each.getCharge();
+		}
+		return result;
+	}
+	
+	private int getTotalFrequentRenterPoints() {
+		int result = 0;
+		Enumeration rentals = _rentals.elements();
+		while (rentals.hasMoreElements()) {
+			Rental each = (Rental) rentals.nextElement();
+			result += each.getFrequentRenterPoints();
+		}
 		return result;
 	}
 }
