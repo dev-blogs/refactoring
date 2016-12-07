@@ -25,10 +25,9 @@ public class Customer {
 		Enumeration rentals = _rentals.elements();
 		String result = "Rental for " + getName() + "\n";
 		while (rentals.hasMoreElements()) {
-			double thisAmount = 0;
 			Rental each = (Rental) rentals.nextElement();
 			
-			thisAmount = amountFor(each);
+			double thisAmount = each.getCharge();
 			
 			frequentRenterPoints++;
 			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) frequentRenterPoints++;
@@ -39,27 +38,5 @@ public class Customer {
 		result += "Credit is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints) + " bals for active";
 		return result;
-	}
-	
-	private int amountFor(Rental each) {
-		int thisAmount = 0;
-		switch (each.getMovie().getPriceCode()) {
-		case Movie.REGULAR :
-			thisAmount += 2;
-			if (each.getDaysRented() > 2) {
-				thisAmount += (each.getDaysRented() - 2) * 1.5;
-			}
-			break;
-		case Movie.NEW_RELEASE :
-			thisAmount += each.getDaysRented() * 3;
-			break;
-		case Movie.CHILDRENS :
-			thisAmount += 1.5;
-			if (each.getDaysRented() > 3) {
-				thisAmount += (each.getDaysRented() - 3) * 1.5;
-			}
-			break;
-		}
-		return thisAmount;
 	}
 }
