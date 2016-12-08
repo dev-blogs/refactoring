@@ -7,6 +7,7 @@ public class Movie {
 	
 	private String _title;
 	private int _priceCode;
+	private Price _price;
 	
 	public Movie(String title, int priceCode) {
 		_title = title;
@@ -22,16 +23,28 @@ public class Movie {
 	}
 
 	public int getPriceCode() {
-		return _priceCode;
+		return _price.getPriceCode();
 	}
 
 	public void setPriceCode(int arg) {
-		this._priceCode = arg;
+		switch (arg) {
+			case REGULAR :
+				_price = _price.new RegularPrice();
+				break;
+			case CHILDRENS :
+				_price = _price.new ChildrensPrice();
+				break;
+			case NEW_RELEASE :
+				_price = _price.new NewReleasePrice();
+				break;
+			default :
+				throw new IllegalArgumentException("Incorrect Price Code");
+		}
 	}
 
 	double getCharge(int daysRented) {
 		double result = 0.0;
-		switch (getPriceCode()) {
+		switch (_priceCode) {
 			case Movie.REGULAR :
 				result += 2;
 				if (daysRented > 2) {
