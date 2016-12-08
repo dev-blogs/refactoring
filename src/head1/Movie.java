@@ -9,7 +9,7 @@ public class Movie {
 	private int _priceCode;
 	private Price _price;
 	
-	public Movie(String title, int priceCode) {
+	public Movie(String title, int priceCode) {		
 		_title = title;
 		setPriceCode(priceCode);
 	}
@@ -29,13 +29,13 @@ public class Movie {
 	public void setPriceCode(int arg) {
 		switch (arg) {
 			case REGULAR :
-				_price = _price.new RegularPrice();
+				_price = new RegularPrice();
 				break;
 			case CHILDRENS :
-				_price = _price.new ChildrensPrice();
+				_price = new ChildrensPrice();
 				break;
 			case NEW_RELEASE :
-				_price = _price.new NewReleasePrice();
+				_price = new NewReleasePrice();
 				break;
 			default :
 				throw new IllegalArgumentException("Incorrect Price Code");
