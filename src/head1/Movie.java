@@ -42,15 +42,11 @@ public class Movie {
 		}
 	}
 	
+	int getFrequentRenterPoints(int daysRented) {
+		return _price.getFrequentRenterPoints(daysRented);
+	}
+	
 	public double getCharge(int daysRented) {
 		return _price.getCharge(daysRented);
-	}
-
-	int getFrequentRenterPoints(int daysRented) {
-		if ((getPriceCode() == Movie.NEW_RELEASE) && daysRented > 1) {
-			return 2;
-		} else {
-			return 1;
-		}
 	}
 }
